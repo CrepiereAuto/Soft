@@ -1,5 +1,5 @@
 {
-  "name": "interface",
+  "name": "SoftPI",
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
@@ -25,5 +25,9 @@
     "gulp-replace": "^0.5.4",
     "gulp-run-electron": "^1.2.2",
     "gulp-sequence": "^0.4.4"
+  },
+  "repository": {
+	"type": "git",
+    "url": "https://github.com/Hougo13/SoftPI.git"
   }
 }

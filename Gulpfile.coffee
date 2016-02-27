@@ -23,10 +23,8 @@ gulp.task 'start', ->
   gulp.src 'build'
     .pipe electron()
 
-gulp.task 'compile', ['build'], ->
-  gulp.src 'build/**'
-    .pipe electronPckg {version: '0.36.8', platform: 'linux'}
-    .pipe gulp.dest 'dist'
+gulp.task 'compile', (cb) ->
+  sequence 'clean:dist', 'dist', cb
 
 gulp.task 'watch', ->
   gulp.watch ['package.json'], ['build', electron.rerun]
@@ -36,6 +34,9 @@ gulp.task 'watch', ->
 
 gulp.task 'clean:build', ->
   del 'build'
+
+gulp.task 'clean:dist', ->
+  del 'dist'
 
 gulp.task 'assets', ->
   gulp.src 'src/assets/**/*.*'
@@ -61,3 +62,8 @@ gulp.task 'package', ->
 gulp.task 'modules', ['package'], ->
   gulp.src 'build/package.json'
     .pipe install {production: true}
+
+gulp.task 'dist', ['build'], ->
+  gulp.src 'build/**'
+    .pipe electronPckg {version: '0.36.8', platform: 'linux'}
+    .pipe gulp.dest 'dist'
