@@ -65,5 +65,5 @@ gulp.task 'modules', ['package'], ->
 
 gulp.task 'dist', ['build'], ->
   gulp.src 'build/**'
-    .pipe electronPckg {version: '0.36.8', platform: 'linux'}
+    .pipe electronPckg {version: '0.36.8', platform: 'linux', arch: 'arm'}
     .pipe gulp.dest 'dist'
