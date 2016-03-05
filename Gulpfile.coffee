@@ -42,11 +42,23 @@ gulp.task 'assets', ->
   gulp.src 'src/assets/**/*.*'
     .pipe copy 'build', {prefix: 2}
 
-gulp.task 'app', ->
-  gulp.src 'src/app/**/*.coffee'
+gulp.task 'app', ['app:view', 'app:lib'], ->
+  gulp.src 'src/app/app.coffee'
     .pipe plumber()
     .pipe coffee {bare: true}
-    .pipe concat 'app.js'
+    .pipe gulp.dest 'build/js/'
+
+gulp.task 'app:lib', ->
+  gulp.src 'src/app/lib/*.coffee'
+    .pipe plumber()
+    .pipe coffee {bare: true}
+    .pipe gulp.dest 'build/js/lib/'
+
+gulp.task 'app:view', ->
+  gulp.src 'src/app/view/*.coffee'
+    .pipe plumber()
+    .pipe coffee {bare: true}
+    .pipe concat 'view.js'
     .pipe gulp.dest 'build/js'
 
 gulp.task 'main', ->

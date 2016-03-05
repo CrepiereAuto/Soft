@@ -1,2 +1,2 @@
 $('#recipes').click ->
-  setView 0
+  view.set 0

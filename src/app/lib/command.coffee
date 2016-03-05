@@ -1,4 +1,6 @@
-class cmd
+'use strict'
+
+class command
   constructor: ->
     @select = 0
     @todo = 0
@@ -18,4 +20,4 @@ class cmd
     if callback
       callback @select
 
-ctr_cmd = new cmd()
+module.exports = new command
