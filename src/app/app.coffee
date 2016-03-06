@@ -19,5 +19,5 @@ app.get '/', (req, res) ->
 io.on 'connection', (socket) ->
   console.log 'a user connected'
 
-http.listen 3000, ->
+http.listen 1024, ->
   console.log 'listening on *:3000'

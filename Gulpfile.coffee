@@ -9,6 +9,9 @@ concat = require 'gulp-concat'
 coffee = require 'gulp-coffee'
 plumber =  require 'gulp-plumber'
 electronPckg = require 'gulp-atom-electron'
+zip = require 'gulp-zip'
+git = require 'gulp-git'
+server = require './server/server'
 
 gulp.task 'default', (cb) ->
   sequence 'build', 'start', 'watch', cb
@@ -25,6 +28,12 @@ gulp.task 'start', ->
 
 gulp.task 'compile', (cb) ->
   sequence 'clean:dist', 'dist', cb
+
+gulp.task 'make', (cb) ->
+  sequence 'build', 'compile', 'compress', cb
+
+gulp.task 'update', (cb) ->
+  sequence 'pull', 'make', cb
 
 gulp.task 'watch', ->
   gulp.watch ['package.json'], ['build', electron.rerun]
@@ -79,3 +88,16 @@ gulp.task 'dist', ['build'], ->
   gulp.src 'build/**'
     .pipe electronPckg {version: '0.36.8', platform: 'linux', arch: 'arm'}
     .pipe gulp.dest 'dist'
+
+gulp.task 'compress', ->
+  gulp.src 'dist/**'
+    .pipe zip 'SoftPI.zip'
+    .pipe gulp.dest ''
+
+gulp.task 'pull', ->
+  git.pull 'origin', 'master', (err) ->
+    if err then throw err
+    console.log 'pulled'
+
+gulp.task 'server', ->
+  server.start()
