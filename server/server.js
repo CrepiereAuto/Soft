@@ -8,7 +8,7 @@ app.get('/', function(req, res){
   res.send('index.html');
 });
 
-app.get('/git/pull', function(req, res){
+app.post('/git/pull', function(req, res){
   res.send('ok');
   git.pull(function(err, update) {
    if(update && update.summary.changes) {
