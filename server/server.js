@@ -1,8 +1,13 @@
 var app = require('express')();
-  http = require('http').Server(app);
-  io = require('socket.io')(http);
-  git = require('simple-git')();
-  gulp = require('./../Gulpfile');
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+// var p2p = require('socket.io-p2p-server').Server;
+var git = require('simple-git')();
+var gulp = require('./../Gulpfile');
+// var p2pMdwr = require('./p2p');
+var manager = require('./manager')
+
+http.listen(3030, function(){console.log('Listening *:3030');});
 
 app.get('/', function(req, res){
   res.send('index.html');
@@ -24,13 +29,27 @@ app.post('/git/pull', function(req, res){
 });
 
 app.get('/download', function(req, res){
-  res.sendFile('SoftPI.zip');
+  var file = __dirname + '/../SoftPI.zip';
+  res.download(file);
 });
 
 io.on('connection', function(socket){
-  console.log('A user connected');
-});
+  socket.on('disconnect', function(){
+    manager.stop(socket.id)
+  })
 
-http.listen(3030, function(){
-  console.log('Listening *:3030');
-});
+  socket.on('start', function(data) {
+    manager.start(socket, data)
+  })
+
+  socket.on('open', function (data) {
+    manager.open(socket, data)
+  })
+
+  socket.on('join', function (data) {
+    manager.join(socket, data)
+  })
+  // socket.join('test')
+  // console.log(socket.adapter.rooms)
+
+})
