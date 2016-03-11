@@ -116,29 +116,70 @@ body {
 
 }
 
-.recette-container{
+.recipes-glyph{
+  font-size: 6vw;
+  font-weight: bold;
+  display: table-cell;
+  vertical-align: middle;
+}
 
+#recipe{
+  width: 100%;
+  height: 100%
+}
+
+.recette-container{
+  position: absolute;
+  height: 15%;
+  width: 100%;
+  text-align: center;
 
 }
 
 #recette{
-
+  font-size: 7vw;
 }
 
-.salee-container{
-
+.rows-recipes{
+  height: 46%;
+  margin: auto;
+  display: table;
 }
 
-#salee{
-
+.salee-container, .sucree-container{
+  position: absolute;
+  display: block;
+  width: 45%;
+  height: 82%;
+  top: 18vh
 }
+
 
 .sucree-container{
-
+  right: 0;
 }
 
-#sucree{
 
+#salee, #sucree{
+  text-align: center;
+  font-size: 4vw
+}
+
+#col-3{
+  position: absolute;
+  left: 40%;
+  right: 40%;
+  height: 100%;
+  width: 20%;
+  padding-top: 15%;
+}
+
+#recipes-select{
+  font-weight: bold;
+  font-size: 6vh;
+  text-align: center;
+  margin: 0;
+  height: 8%;
 }
 
 .row-img{
