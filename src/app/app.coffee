@@ -4,8 +4,8 @@ EventEmitter = require 'events'
 # http = require 'http'
 # io = require 'socket.io'
 #
-# ctr_cmd = require './js/lib/command'
-# view = require './js/lib/view'
+ctr_cmd = require './js/lib/command'
+view = require './js/lib/view'
 
 events = new EventEmitter()
 #
