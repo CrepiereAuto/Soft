@@ -14,6 +14,31 @@ body {
   padding: 0;
 }
 
+
+.wifi-container{
+  position: absolute;
+  height: 38%;
+  width: 95%;
+  overflow-y: auto;
+  margin: 4%;
+  margin-top: 7%;
+}
+
+
+.table-wifi{
+  font-size: 3vh;
+
+}
+
+.params-return-container{
+  position: absolute;
+  font-size: 6vw;
+  top : -1vh;
+  height: 11vh;
+  width: 15vw;
+
+}
+
 .columns{
   float: left;
   height: 100%;
@@ -75,13 +100,22 @@ body {
   top: 0;
   bottom: 0;
   left: 0;
-  position: absolute;
+  position: relative;
   margin: auto;
 }
 
 #progress{
   height: 50%;
+  position: relative;
 }
+
+.progress span {
+    position: absolute;
+    display: block;
+    width: 100%;
+    color: white;
+    top: 30%;
+ }
 
 .count-container{
     display: block;

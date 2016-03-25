@@ -1,2 +1,2 @@
-$('#params').click ->
-  view.set 0
+# $('#params').click ->
+#   view.set 0
