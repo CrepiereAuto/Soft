@@ -56,12 +56,12 @@ class Manager {
   join(socket, key){
     var token = this.clients[socket.id]
     var room = this.keys[key]
-    debug(token+' join '+room)
     if (room) {
       if (this.tokens[token].indexOf(room) == -1){
         debug(token+' join '+room)
         this.tokens[token].push(room)
         socket.join(room)
+        socket.emit('join', true)
         delete(this.keys[key])
       }
     }else {

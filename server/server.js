@@ -49,7 +49,5 @@ io.on('connection', function(socket){
   socket.on('join', function (data) {
     manager.join(socket, data)
   })
-  // socket.join('test')
-  // console.log(socket.adapter.rooms)
 
 })
