@@ -1,7 +1,8 @@
 $("#col-1").click ->
-  console.log $("#cmd-select").text()
+  slct = $("#cmd-select").text()
   ctr_cmd.selector 0
-  view.set 4
+  if slct > 0
+    view.set 4
 
 $(".rows").click ->
   ctr_cmd.selector parseFloat($(this).attr("value")), (disp) ->
