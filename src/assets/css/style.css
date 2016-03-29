@@ -136,10 +136,11 @@ body {
 
 }
 
-.cmd-return-container{
+.return-container{
   position: absolute;
   width: 18%;
   height: 17%;
+  z-index: 1;
 
 }
 

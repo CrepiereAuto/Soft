@@ -3,6 +3,7 @@ EventEmitter = require 'events'
 io = require 'socket.io-client'
 jsonfile = require 'jsonfile'
 
+recipes = require './js/lib/recipes'
 ctr_cmd = require './js/lib/command'
 view = require './js/lib/view'
 
