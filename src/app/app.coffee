@@ -1,40 +1,41 @@
 jQuery = $ = require 'jquery'
 EventEmitter = require 'events'
-# express = require 'express'
-# http = require 'http'
-# io = require 'socket.io'
-#
+io = require 'socket.io-client'
+jsonfile = require 'jsonfile'
+
 ctr_cmd = require './js/lib/command'
 view = require './js/lib/view'
 
 events = new EventEmitter()
-#
-# app = express()
-# http = http.Server app
-# io = io http
-#
-# app.get '/', (req, res) ->
-#   res.send '<h1>Hello world</h1>'
-#
-# io.on 'connection', (socket) ->
-#   console.log 'a user connected'
-#
-# http.listen 1024, ->
-#   console.log 'listening on *:3000'
-#
-# io = require 'socket.io-client'
-# socket = io 'http://localhost:3030'
-#
-# users = []
-#
-#
-# socket.on 'connect', ->
-#   console.log 'connected'
-#   socket.on 'disconnect', ->
-#     console.log 'disconnected'
-#
-#   socket.emit 'start'
-#
-#   socket.on 'token', (token) ->
-#     console.log token
-#     socket.emit 'open', '123'
+socket = io 'http://localhost:3030'
+
+bd = jsonfile.readFileSync __dirname+'/bd.json'
+
+socket.on 'connect', ->
+  console.log 'connected'
+  socket.on 'disconnect', ->
+    console.log 'disconnected'
+
+  socket.emit 'start', bd.token
+
+  if !bd.token
+    console.log 'wait token'
+    socket.on 'token', (token) ->
+      console.log token
+      bd.token = token
+      jsonfile.writeFileSync __dirname+'/bd.json', bd
+
+  events.on 'open', (code) ->
+    console.log 'station open'
+    socket.emit 'open', code
+
+  socket.on 'update', (changes) ->
+    update changes
+
+update = (changes) ->
+  for i of changes
+    change = changes[i]
+    console.log i+' = '+change
+    ctr_cmd[i] = change
+  ctr_cmd.selector -3
+  events.emit 'update'
