@@ -17,11 +17,11 @@ body {
 
 .wifi-container{
   position: absolute;
-  height: 38%;
+  height: 54vh;
   width: 95%;
   overflow-y: auto;
   margin: 4%;
-  margin-top: 7%;
+  padding-top: 12%;
 }
 
 
