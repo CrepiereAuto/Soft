@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.13.4",
+    "handlebars": "^4.0.5",
     "jquery": "^2.2.0",
     "jsonfile": "^2.2.3",
     "nedb": "^1.8.0",
@@ -25,12 +26,14 @@
     "gulp-coffee": "^2.3.1",
     "gulp-concat": "^2.6.0",
     "gulp-copy": "0.0.2",
+    "gulp-flatten": "^0.2.0",
     "gulp-git": "^1.7.0",
     "gulp-install": "^0.6.0",
     "gulp-plumber": "^1.0.1",
     "gulp-replace": "^0.5.4",
     "gulp-run-electron": "^1.2.2",
     "gulp-sequence": "^0.4.4",
+    "gulp-stylus": "^2.3.1",
     "gulp-zip": "^3.2.0",
     "simple-git": "^1.27.0",
     "socket.io-p2p-server": "^1.2.0"

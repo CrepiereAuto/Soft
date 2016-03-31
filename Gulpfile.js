@@ -1,26 +1,17 @@
 var gulp = require('gulp');
-
   del = require('del');
-
   copy = require('gulp-copy');
-
   electron = require('gulp-run-electron');
-
   replace = require('gulp-replace');
-
   install = require('gulp-install');
-
   sequence = require('gulp-sequence');
-
   concat = require('gulp-concat');
-
   coffee = require('gulp-coffee');
-
   plumber = require('gulp-plumber');
-
   electronPckg = require('gulp-atom-electron');
-
   zip = require('gulp-zip');
+  stylus = require('gulp-stylus');
+  flatten = require('gulp-flatten');
 
 gulp.task('default', function(cb) {
   return sequence('build', 'start', 'watch', cb);
@@ -54,6 +45,8 @@ gulp.task('watch', function() {
   gulp.watch(['package.json'], ['build', electron.rerun]);
   gulp.watch(['src/assets/**/*'], ['assets', electron.rerun]);
   gulp.watch(['src/app/**/*.coffee'], ['app', electron.rerun]);
+  gulp.watch(['src/app/**/*.styl'], ['app', electron.rerun]);
+  gulp.watch(['src/app/**/*.html'], ['app', electron.rerun]);
   gulp.watch(['src/main.coffee'], ['main', electron.rerun]);
 });
 
@@ -71,23 +64,48 @@ gulp.task('assets', function() {
   }));
 });
 
-gulp.task('app', ['app:view', 'app:lib'], function() {
-  return gulp.src('src/app/app.coffee').pipe(plumber()).pipe(coffee({
-    bare: true
-  })).pipe(gulp.dest('build/js/'));
+gulp.task('app', ['app:coffee', 'app:styl', 'app:html']);
+
+gulp.task('app:coffee', function() {
+  return gulp.src('src/app/**/*.coffee')
+    .pipe(plumber())
+    .pipe(coffee({bare: true}))
+    .pipe(concat('app.js'))
+    .pipe(gulp.dest('build/js/'));
 });
 
-gulp.task('app:lib', function() {
-  return gulp.src('src/app/lib/*.coffee').pipe(plumber()).pipe(coffee({
-    bare: true
-  })).pipe(gulp.dest('build/js/lib/'));
+gulp.task('app:styl', function() {
+  return gulp.src('src/app/**/*.styl')
+    .pipe(plumber())
+    .pipe(stylus())
+    .pipe(concat('app.css'))
+    .pipe(gulp.dest('build/css/'));
 });
 
-gulp.task('app:view', function() {
-  return gulp.src('src/app/view/*.coffee').pipe(plumber()).pipe(coffee({
-    bare: true
-  })).pipe(concat('view.js')).pipe(gulp.dest('build/js'));
+gulp.task('app:html', function() {
+  return gulp.src('src/app/**/*.html')
+    .pipe(plumber())
+    .pipe(flatten())
+    .pipe(gulp.dest('build/views/'));
 });
+
+// gulp.task('app', ['app:view', 'app:lib'], function() {
+//   return gulp.src('src/app/app.coffee').pipe(plumber()).pipe(coffee({
+//     bare: true
+//   })).pipe(gulp.dest('build/js/'));
+// });
+//
+// gulp.task('app:lib', function() {
+//   return gulp.src('src/app/lib/*.coffee').pipe(plumber()).pipe(coffee({
+//     bare: true
+//   })).pipe(gulp.dest('build/js/lib/'));
+// });
+//
+// gulp.task('app:view', function() {
+//   return gulp.src('src/app/view/*.coffee').pipe(plumber()).pipe(coffee({
+//     bare: true
+//   })).pipe(concat('view.js')).pipe(gulp.dest('build/js'));
+// });
 
 gulp.task('main', function() {
   return gulp.src('src/main.coffee').pipe(coffee({

@@ -14,6 +14,12 @@ body {
   padding: 0;
 }
 
+#view{
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 
 .wifi-container{
   position: absolute;
