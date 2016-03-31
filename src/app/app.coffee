@@ -8,7 +8,7 @@ Handlebars = require 'handlebars'
 # ctr_cmd = require './js/lib/command'
 # view = require './js/lib/view'
 #
-# events = new EventEmitter()
+events = new EventEmitter()
 # socket = io 'http://localhost:3030'
 #
 # bd = jsonfile.readFileSync __dirname+'/bd.json'

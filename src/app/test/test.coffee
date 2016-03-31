@@ -1,1 +1,0 @@
-Handlebars = require 'handlebars'
