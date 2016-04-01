@@ -1,3 +1,4 @@
+'use strict'
 jQuery = $ = require 'jquery'
 EventEmitter = require 'events'
 io = require 'socket.io-client'
@@ -9,6 +10,23 @@ Handlebars = require 'handlebars'
 # view = require './js/lib/view'
 #
 events = new EventEmitter()
+
+viewStart = {
+  started: 0,
+  contents: {},
+  add: (name, params) ->
+    if @started
+      view.contents[name] = params
+    else
+      @contents[name] = params
+  start: ->
+    @started = 1
+    view.contents = @contents
+    view.set 'menu'
+}
+
+
+
 # socket = io 'http://localhost:3030'
 #
 # bd = jsonfile.readFileSync __dirname+'/bd.json'

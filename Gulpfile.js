@@ -44,9 +44,7 @@ gulp.task('update', function(cb) {
 gulp.task('watch', function() {
   gulp.watch(['package.json'], ['build', electron.rerun]);
   gulp.watch(['src/assets/**/*'], ['assets', electron.rerun]);
-  gulp.watch(['src/app/**/*.coffee'], ['app', electron.rerun]);
-  gulp.watch(['src/app/**/*.styl'], ['app', electron.rerun]);
-  gulp.watch(['src/app/**/*.html'], ['app', electron.rerun]);
+  gulp.watch(['src/app/**/*.coffee', 'src/app/**/*.styl', 'src/app/**/*.html'], ['app', electron.rerun]);
   gulp.watch(['src/main.coffee'], ['main', electron.rerun]);
 });
 

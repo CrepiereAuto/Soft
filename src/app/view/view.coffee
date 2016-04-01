@@ -9,7 +9,8 @@ class View
       self = @
       @compile nxt, (data) ->
         display = ->
-          $('body').append('<div id="view">'+data+'</div>').hide().fadeIn()
+          html = '<div id="view" data-view="'+nxt+'">'+data+'</div>'
+          $('body').append(html).hide().fadeIn()
           self.view = nxt
           self.viewSecu = 0
         if $('#view').length
@@ -25,17 +26,19 @@ class View
     $.get 'views/'+name+'.html', (file) ->
       template = Handlebars.compile(file)
       if callback then callback(template(data))
-  update: (name) ->
+  update: ->
     if !@viewSecu
       @viewSecu = 1
       self = @
-      @compile name, (data) ->
+      @compile @view, (data) ->
         $('#view').remove()
-        $('body').append('<div id="view">'+data+'</div>')
+        html = '<div id="view" data-view="'+self.view+'">'+data+'</div>'
+        $('body').append(html)
         self.viewSecu = 0
     else
       return 'error view is changing'
 
 view = new View
 
-events.emit 'viewLoaded'
+viewStart.start()
+# events.emit 'viewLoaded'
