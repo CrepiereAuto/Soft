@@ -1,31 +1,29 @@
-<div class="return-container">
-  <span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true" id="cmd-return"></span>
+<span class="glyphicon glyphicon-circle-arrow-left return" aria-hidden="true"></span>
+<div class="recipe-header-container">
+  <h1 class="recipe-header">Recipes</h1>
 </div>
-<div class="recette-container">
-  <h1 id="recette"> Recipes</h1>
-</div>
-<div class="salee-container">
-  <h3 id="salee"> Crêpe salée</h3>
-  <ul id="liste-salée">
+<div class="recipe-salty">
+  <h3 class="recipe-title salty">Crêpe salée</h3>
+  <ul class="recipe-list salty">
     {{#each salty}}
       <li>{{this.quantity}}{{this.unity}} {{this.sentence}}</li>
     {{/each}}
   </ul>
 </div>
-<div class="sucree-container">
-  <h3 id="sucree"> Crêpe sucrée</h3>
-  <ul id="liste-sucree">
+<div class="recipe-sugary">
+  <h3 class="recipe-title sugary">Crêpe sucrée</h3>
+  <ul class="recipe-list sugary">
     {{#each sugary}}
       <li>{{this.quantity}}{{this.unity}} {{this.sentence}}</li>
     {{/each}}
   </ul>
 </div>
-<div class="columns" id="col-3">
-  <div class="rows-recipes" value="1">
-    <span class="recipes-glyph glyphicon glyphicon-menu-up" aria-hidden="true"></span>
+<div class="recipe-selector">
+  <div class="recipe-selector-row" value="1">
+    <span class="recipe-selector-glyph glyphicon glyphicon-menu-up" aria-hidden="true"></span>
   </div>
-  <h2 id="recipes-select">{{persons}}</h2>
-  <div class="rows-recipes" value="-1">
-    <span class="recipes-glyph glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+  <h2 class="recipe-selector-title">{{persons}}</h2>
+  <div class="recipe-selector-row" value="-1">
+    <span class="recipe-selector-glyph glyphicon glyphicon-menu-down" aria-hidden="true"></span>
   </div>
 </div>

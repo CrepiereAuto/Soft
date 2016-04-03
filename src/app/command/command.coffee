@@ -34,7 +34,7 @@ viewStart.add 'command', {
   select: command.select
 }
 
-$(document).on 'click', '.rows', ->
+$(document).on 'click', '.command-rows', ->
   command.selector parseFloat($(this).attr("value"))
 
 $(document).on 'click', '#col-1', ->

@@ -87,24 +87,6 @@ gulp.task('app:html', function() {
     .pipe(gulp.dest('build/views/'));
 });
 
-// gulp.task('app', ['app:view', 'app:lib'], function() {
-//   return gulp.src('src/app/app.coffee').pipe(plumber()).pipe(coffee({
-//     bare: true
-//   })).pipe(gulp.dest('build/js/'));
-// });
-//
-// gulp.task('app:lib', function() {
-//   return gulp.src('src/app/lib/*.coffee').pipe(plumber()).pipe(coffee({
-//     bare: true
-//   })).pipe(gulp.dest('build/js/lib/'));
-// });
-//
-// gulp.task('app:view', function() {
-//   return gulp.src('src/app/view/*.coffee').pipe(plumber()).pipe(coffee({
-//     bare: true
-//   })).pipe(concat('view.js')).pipe(gulp.dest('build/js'));
-// });
-
 gulp.task('main', function() {
   return gulp.src('src/main.coffee').pipe(coffee({
     bare: true
