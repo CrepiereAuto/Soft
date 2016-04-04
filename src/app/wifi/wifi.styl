@@ -1,0 +1,67 @@
+.wifi
+  &-container
+    height: 100%
+    width: 100%
+    padding-top: 14vh
+  &-table
+    font-size: 3vh
+    width: 96%
+    margin: auto
+    &-container
+      margin-bottom: 2%
+      height: 38%
+      overflow-y: auto
+  &-pass
+    width: 96%
+    margin: auto
+    margin-bottom: 2%
+
+keyW = 6.34%
+keyH = 18%
+
+#keyboard
+  height: 45%
+  width: 96%
+  margin: auto
+  padding: 0
+  list-style: none
+  overflow: hidden
+  li
+    float: left;
+    margin: 0 0.5% 0.5% 0
+    width: keyW
+    height: keyH
+    line-height: 6vh
+    text-align: center
+    background: #fff
+    border: 1px solid #ccc
+    -moz-border-radius: 5px
+    -webkit-border-radius: 5px
+    &:hover
+      position: relative
+      top: 1px
+      left: 1px
+      border-color: #e5e5e5
+      cursor: pointer
+  .tab, .delete
+    width: 1.75*keyW
+  .capslock
+    width: 1.9*keyW
+  .return
+    width: 1.92*keyW
+  .left-shift
+    width: 2.16*keyW
+  .enter
+    width: 2.725*keyW
+  .space
+    margin-bottom: 0
+    clear: left
+    width: 100%
+  .capslock, .tab, .left-shift
+    clear: left
+  .lastitem
+    margin-right: 0
+  .uppercase
+    text-transform: uppercase
+  .on
+    display: none
