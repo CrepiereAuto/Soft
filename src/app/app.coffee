@@ -4,12 +4,65 @@ EventEmitter = require 'events'
 io = require 'socket.io-client'
 jsonfile = require 'jsonfile'
 Handlebars = require 'handlebars'
+fs = require 'fs'
+request = require 'request'
+IOT = require('socket.io-iot').default
 
-# recipes = require './js/lib/recipes'
-# ctr_cmd = require './js/lib/command'
-# view = require './js/lib/view'
-#
 events = new EventEmitter()
+
+serverUrl = 'http://localhost:3030'
+
+if !fs.existsSync __dirname+'/bd.json'
+  fs.writeFileSync __dirname+'/bd.json', "{}"
+bd = jsonfile.readFileSync __dirname+'/bd.json'
+
+iot = new IOT serverUrl, 'server', bd.id
+
+room = null
+
+iot.on 'connect', (msg) ->
+  console.log 'connected'
+  room = msg.room
+
+iot.on 'id', (id) ->
+  # jsonfile.writeFileSync __dirname+'/bd.json', {id: id}
+
+iot.on 'get', ->
+  iot.send 'command', {todo: command.todo, done: command.done, progress: command.progress(), room: room}
+
+iot.on 'command', (d) ->
+  command.set d.todo
+
+# commands = [{todo: 2, done:1}, {todo: 5, done: 0}]
+#
+# setCommand = (n) ->
+#   if commands[0]
+#     commands[0].todo = n
+#   else
+#     commands.push {todo: n, done: 0}
+#   renderCommand()
+#
+# renderCommand = ->
+#   view.contents.work = {
+#     timer: '15:12',
+#     percent: Math.round(commands[0].done*100/commands[0].todo),
+#     done: commands[0].done,
+#     todo: commands[0].todo
+#   }
+#   if view.view == 'work'
+#     view.update()
+#
+# addDone = ->
+#   commands[0].done = commands[0].done + 1
+#   renderCommand()
+#   if commands[0].done == commands[0].todo
+#     commands.splice(0,1)
+#     if commands[0]
+#       command.set(commands[0].todo)
+#       renderCommand()
+#     else
+#       command.set(0)
+#   console.log commands
 
 viewStart = {
   started: 0,
@@ -25,37 +78,18 @@ viewStart = {
     view.set 'menu'
 }
 
+fs.existsSync = (filePath) ->
+  try
+    fs.statSync filePath
+  catch error
+    if error.code == 'ENOENT'
+      return false
+  return true
 
-
-# socket = io 'http://localhost:3030'
-#
-# bd = jsonfile.readFileSync __dirname+'/bd.json'
-#
-# socket.on 'connect', ->
-#   console.log 'connected'
-#   socket.on 'disconnect', ->
-#     console.log 'disconnected'
-#
-#   socket.emit 'start', bd.token
-#
-#   if !bd.token
-#     console.log 'wait token'
-#     socket.on 'token', (token) ->
-#       console.log token
-#       bd.token = token
-#       jsonfile.writeFileSync __dirname+'/bd.json', bd
-#
-#   events.on 'open', (code) ->
-#     console.log 'station open'
-#     socket.emit 'open', code
-#
-#   socket.on 'update', (changes) ->
-#     update changes
-#
-# update = (changes) ->
-#   for i of changes
-#     change = changes[i]
-#     console.log i+' = '+change
-#     ctr_cmd[i] = change
-#   ctr_cmd.selector -3
-#   events.emit 'update'
+update = (changes) ->
+  for i of changes
+    change = changes[i]
+    console.log i+' = '+change
+    ctr_cmd[i] = change
+  ctr_cmd.selector -3
+  events.emit 'update'

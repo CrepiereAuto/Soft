@@ -7,4 +7,10 @@ viewStart.add 'menu', {
 }
 
 $(document).on 'click', '.item', ->
-  view.set $('.item.active').attr 'data-view'
+  v = $('.item.active').attr 'data-view'
+  if v != 'command'
+    view.set v
+  else if command.todo > 0
+    view.set 'work'
+  else
+    view.set v

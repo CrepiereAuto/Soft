@@ -10,9 +10,9 @@ class View
       @compile nxt, (data) ->
         display = ->
           html = '<div id="view" data-view="'+nxt+'">'+data+'</div>'
-          $('body').append(html).hide().fadeIn()
-          self.view = nxt
-          self.viewSecu = 0
+          $('body').append(html).hide().fadeIn ->
+            self.view = nxt
+            self.viewSecu = 0
         if $('#view').length
           $('#view').fadeOut 'slow', ->
             $(this).remove()

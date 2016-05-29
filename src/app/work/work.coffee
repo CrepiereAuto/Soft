@@ -5,7 +5,7 @@ viewStart.add 'work', {
   todo: 10
 }
 
-$(document).on 'click', '.count-container', ->
+$(document).on 'click', '.work-count', ->
   view.set 'command'
 
 $(document).on 'click', '#view[data-view="work"]', ->
