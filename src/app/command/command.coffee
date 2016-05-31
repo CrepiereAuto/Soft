@@ -19,7 +19,7 @@ class Command
         console.log 'start'
       else
         console.log 'stop'
-        sefl.arduino.out.set(0)
+        self.arduino.out.set(0)
         self.addDone()
 
   progress: ->
