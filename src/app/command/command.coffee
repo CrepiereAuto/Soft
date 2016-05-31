@@ -17,9 +17,9 @@ class Command
     @arduino.in.on 'change', (v) ->
       if v
         console.log 'start'
+        self.arduino.out.set(0)
       else
         console.log 'stop'
-        self.arduino.out.set(0)
         self.addDone()
 
   progress: ->
