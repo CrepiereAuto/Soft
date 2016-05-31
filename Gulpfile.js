@@ -105,7 +105,7 @@ gulp.task('modules', ['package'], function() {
 
 gulp.task('dist', ['build'], function() {
   return gulp.src('build/**').pipe(electronPckg({
-    version: '0.36.10',
+    version: '1.2.0',
     platform: 'linux',
     arch: 'arm'
   })).pipe(gulp.dest('dist'));

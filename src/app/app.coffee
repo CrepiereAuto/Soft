@@ -6,6 +6,7 @@ jsonfile = require 'jsonfile'
 Handlebars = require 'handlebars'
 fs = require 'fs'
 request = require 'request'
+gpio = require 'gpio'
 IOT = require('socket.io-iot').default
 
 events = new EventEmitter()

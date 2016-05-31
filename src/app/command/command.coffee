@@ -1,14 +1,35 @@
 class Command
   constructor: (args) ->
+    self = @
     @select = 0
     @todo = 0
     @done = 0
+    @arduino = {
+      in: gpio.export(16, {
+          direction: 'in'
+        }),
+      out: gpio.export(26, {
+          direction: 'out',
+          ready: ->
+            self.arduino.out.set(0)
+        })
+    }
+    @arduino.in.on 'change', (v) ->
+      if v
+        console.log 'start'
+      else
+        console.log 'stop'
+        sefl.arduino.out.set(0)
+        self.addDone()
 
   progress: ->
     return Math.round(@done*100/@todo)
 
   set: (todo) ->
-    @todo = @select = parseInt todo
+    todo = parseInt todo
+    if @todo == 0 && todo > 0
+      @make()
+    @todo = @select = todo
     view.contents.work.todo = @todo
     view.contents.work.done = @done
     view.contents.work.percent = @progress()
@@ -29,13 +50,9 @@ class Command
     view.update()
 
   validate: ->
-    @todo = @select
     if @select
-      view.contents.work.todo = @todo
-      view.contents.work.done = @done
-      view.contents.work.percent = @progress()
       view.set 'work'
-      iot.send 'command', {todo: @todo, done: @done, progress: @progress(), room: room}
+      @set @select
 
   addDone: ->
     if @done + 1 <= @todo
@@ -61,8 +78,14 @@ class Command
           }
           view.set 'menu'
         , 2000
+      else
+        @make()
       iot.send 'command', {todo: @todo, done: @done, progress: @progress(), room: room}
       return true
+
+  make: ->
+    console.log "ok"
+    @arduino.out.set()
 
 command = new Command
 
