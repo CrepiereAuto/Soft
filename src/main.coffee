@@ -5,14 +5,14 @@ app = electron.app
 BrowserWindow = electron.BrowserWindow
 
 createWindow = ->
-  # mainWindow = new BrowserWindow {fullscreen: true}
-  mainWindow = new BrowserWindow {width: 800, height: 600}
+  mainWindow = new BrowserWindow {fullscreen: true}
+  # mainWindow = new BrowserWindow {width: 800, height: 600}
 
   mainWindow.setMenuBarVisibility false
 
   mainWindow.loadURL 'file://' + __dirname + '/index.html'
 
-  mainWindow.webContents.openDevTools()
+  # mainWindow.webContents.openDevTools()
 
   mainWindow.on 'closed', ->
     mainWindow = null
