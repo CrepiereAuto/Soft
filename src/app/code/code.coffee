@@ -16,7 +16,7 @@ code = {
       setTimeout ->
         if self.run
           self.loop()
-      ,10000
+      ,60000
     ).catch(->
       if self.run
         self.loop()
