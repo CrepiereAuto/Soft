@@ -11,7 +11,7 @@ IOT = require('socket.io-iot').default
 
 events = new EventEmitter()
 
-serverUrl = '81.240.88.61:3030'
+serverUrl = 'http://81.240.88.61:3030'
 
 # if !fs.existsSync __dirname+'/bd.json'
 #   fs.writeFileSync __dirname+'/bd.json', "{}"
